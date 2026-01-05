@@ -1,0 +1,22 @@
+{
+  "appId": "1d46deec-1d0d-4346-ae7b-db48f8d4a5a8",
+  "appDisplayName": "Time Registration App",
+  "description": null,
+  "environmentId": "b72ef45b-3c29-e724-9719-da75ad76b506",
+  "buildPath": "./dist",
+  "buildEntryPoint": "index.html",
+  "logoPath": "public/vite.svg",
+  "localAppUrl": "http://localhost:3000/",
+  "region": "prod",
+  "connectionReferences": {
+    "office365users": {
+      "id": "/providers/Microsoft.PowerApps/apis/shared_office365users",
+      "displayName": "Office 365 Users",
+      "connectionId": "11c05e32de1c43698d0f5342e60c5d6d",
+      "dataSources": [
+        "office365users"
+      ]
+    }
+  },
+  "databaseReferences": {}
+}

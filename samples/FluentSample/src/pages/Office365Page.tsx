@@ -2,10 +2,8 @@ import { Text, Card, makeStyles, shorthands, tokens, Input, Badge, Spinner, Avat
 import { PeopleRegular, SearchRegular, PersonRegular } from '@fluentui/react-icons';
 import PageHeader from '../components/PageHeader';
 import { useState, useEffect, useCallback } from 'react';
-// TODO: Replace with live Office365UsersService when connecting to real data
-// import { Office365UsersService } from '../Services/Office365UsersService';
-import * as mockData from '../mockData/office365Data';
-import type { User } from '../mockData/office365Data';
+import { Office365UsersService } from '../generated/services/Office365UsersService';
+import type { User } from '../generated/models/Office365UsersModel';
 
 const useStyles = makeStyles({
   container: {
@@ -74,70 +72,29 @@ export default function Office365Page() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [userPhotos, setUserPhotos] = useState<Record<string, string>>({});
 
   // Load current user profile
   useEffect(() => {
     const loadCurrentUser = async () => {
       try {
-        // TODO: Replace with live Office365UsersService.MyProfile() when connecting to real data
-        // const result = await Office365UsersService.MyProfile();
-        // if (result.data) {
-        //   setCurrentUser(result.data);
-        //   // Load the current user's photo
-        //   const photo = await loadUserPhoto(result.data.Id);
-        //   if (photo) {
-        //     setUserPhotos(prev => ({ ...prev, [result.data.Id]: photo }));
-        //   }
-        // }
-        
-        // Using mock data for demonstration
-        setCurrentUser(mockData.mockCurrentUser);
-        // Mock users don't have real photos, so we'll simulate loading
-        console.log('Loaded current user profile (mock data):', mockData.mockCurrentUser.DisplayName);
+        const result = await Office365UsersService.MyProfile();
+        if (result.success && result.data) {
+          setCurrentUser(result.data);
+        } else {
+          console.error('Error loading current user:', result.error);
+        }
       } catch (error) {
         console.error('Error loading current user:', error);
-        // Fallback: show message that Office 365 connection is available but may need permissions
       }
     };
     loadCurrentUser();
   }, []);
 
-  // Load user photo
-  const loadUserPhoto = async (userId: string): Promise<string | null> => {
-    try {
-      // TODO: Replace with live Office365UsersService.UserPhoto() when connecting to real data
-      // const result = await Office365UsersService.UserPhoto(userId);
-      // if (result.data) {
-      //   // The photo comes as base64 data, create a data URL
-      //   return `data:image/jpeg;base64,${result.data}`;
-      // }
-      
-      // For mock data, we don't have real photos
-      // In a real implementation, this would fetch actual user photos
-      console.log(`Mock: Would load photo for user ${userId}`);
-    } catch (error) {
-      console.error(`Error loading photo for user ${userId}:`, error);
-    }
-    return null;
-  };
-
   // Helper function to load user photos
   const loadPhotosForUsers = useCallback(async (newUsers: User[]) => {
-    const photoPromises = newUsers.map(async (user: User) => {
-      const photo = await loadUserPhoto(user.Id);
-      return { userId: user.Id, photo };
-    });
-    
-    const photoResults = await Promise.all(photoPromises);
-    const photoMap: Record<string, string> = {};
-    photoResults.forEach(({ userId, photo }: { userId: string, photo: string | null }) => {
-      if (photo) {
-        photoMap[userId] = photo;
-      }
-    });
-    
-    setUserPhotos(prev => ({ ...prev, ...photoMap }));
+    // Photo loading disabled for this sample
+    // Can be implemented if UserPhoto operation is available
+    console.log(`Would load photos for ${newUsers.length} users`);
   }, []);
 
   // Search users with simple SearchUser approach
@@ -156,32 +113,18 @@ export default function Office365Page() {
       try {
         console.log('Searching users with term:', searchTerm);
         
-        // TODO: Replace with live Office365UsersService.SearchUser() when connecting to real data
-        // const pageSize = 50;
-        // const result = await Office365UsersService.SearchUser(
-        //   searchTerm.trim(),
-        //   pageSize
-        // );
-        // 
-        // if (result.success && result.data) {
-        //   setUsers(result.data);
-        //   console.log('Users loaded:', result.data.length);
-        //   
-        //   // Load photos for the users
-        //   await loadPhotosForUsers(result.data);
-        // } else {
-        //   console.error('Search failed:', result.errorMessage);
-        //   setUsers([]);
-        // }
+        const result = await Office365UsersService.SearchUser(searchTerm.trim(), 50);
         
-        // Using mock data for demonstration
-        const pageSize = 50;
-        const mockResults = mockData.searchUsers(searchTerm.trim(), pageSize);
-        setUsers(mockResults);
-        console.log('Users loaded (mock data):', mockResults.length);
-        
-        // Simulate photo loading (no actual photos in mock data)
-        await loadPhotosForUsers(mockResults);
+        if (result.success && result.data) {
+          setUsers(result.data);
+          console.log('Users loaded:', result.data.length);
+          
+          // Load photos for the users (disabled for now)
+          await loadPhotosForUsers(result.data);
+        } else {
+          console.error('Search failed:', result.error);
+          setUsers([]);
+        }
         
       } catch (error) {
         console.error('Error searching users:', error);
@@ -205,8 +148,8 @@ export default function Office365Page() {
       />
 
       {currentUser ? (
-        <Badge className={styles.mockDataBadge} appearance="tint" color="important">
-          📋 Demo Mode - Using Mock Data (Welcome, {currentUser.DisplayName}!)
+        <Badge className={styles.mockDataBadge} appearance="tint" color="success">
+          ✅ Connected to Office 365 (Welcome, {currentUser.DisplayName}!)
         </Badge>
       ) : (
         <Badge className={styles.mockDataBadge} appearance="tint" color="brand">
@@ -218,22 +161,10 @@ export default function Office365Page() {
       <Card style={{ padding: '16px', backgroundColor: tokens.colorNeutralBackground2, marginBottom: '24px' }}>
         <div style={{ textAlign: 'center' }}>
           <Text style={{ color: tokens.colorNeutralForeground2, lineHeight: tokens.lineHeightBase300, display: 'block', marginBottom: '8px', fontSize: tokens.fontSizeBase200 }}>
-            💡 Ask Copilot to convert to live Office 365 Connector
+            ✨ Live Office 365 Connector Active
           </Text>
           <Text style={{ color: tokens.colorNeutralForeground2, lineHeight: tokens.lineHeightBase300, fontSize: tokens.fontSizeBase100 }}>
-            📚 For more information, check out our{' '}
-            <a 
-              href="https://github.com/microsoft/PowerAppsCodeApps/blob/FluentSample/docs/how-to-connect-to-data.md"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ 
-                color: tokens.colorBrandForeground1, 
-                textDecoration: 'none',
-                fontWeight: tokens.fontWeightSemibold
-              }}
-            >
-              data connection guide
-            </a> 🔗
+            This page is now connected to your Office 365 environment. Search for users in your organization below.
           </Text>
         </div>
       </Card>
@@ -251,7 +182,6 @@ export default function Office365Page() {
               <Avatar
                 name={currentUser.DisplayName}
                 size={64}
-                image={userPhotos[currentUser.Id] ? { src: userPhotos[currentUser.Id] } : undefined}
               />
               <div>
                 <div className={styles.userName} style={{ fontSize: tokens.fontSizeBase400 }}>
@@ -268,7 +198,7 @@ export default function Office365Page() {
                   <div><strong>Email:</strong> {currentUser.Mail || 'Not available'}</div>
                   <div><strong>User Principal:</strong> {currentUser.UserPrincipalName || 'Not available'}</div>
                   <div><strong>Department:</strong> {currentUser.Department || 'Not specified'}</div>
-                  <div><strong>Company:</strong> {currentUser.CompanyName || 'Not specified'}</div>
+                  <div><strong>Job Title:</strong> {currentUser.JobTitle || 'Not specified'}</div>
                 </div>
                 <div>
                   <div><strong>Office:</strong> {currentUser.OfficeLocation || 'Not specified'}</div>
@@ -328,7 +258,6 @@ export default function Office365Page() {
                 <Avatar
                   name={user.DisplayName}
                   size={48}
-                  image={userPhotos[user.Id] ? { src: userPhotos[user.Id] } : undefined}
                 />
                 <div>
                   <div className={styles.userName}>{user.DisplayName}</div>
