@@ -4,7 +4,9 @@
  */
 
 // Models
+export * as DEVES_BusinessCentralModel from './models/DEVES_BusinessCentralModel';
 export * as Office365UsersModel from './models/Office365UsersModel';
 
 // Services
+export * from './services/DEVES_BusinessCentralService';
 export * from './services/Office365UsersService';

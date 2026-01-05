@@ -1,0 +1,288 @@
+{
+  "name": "shared_deves-5fbusinesscentral-5fe3c6506302a2990e-5f6e9940142d357f4b",
+  "id": "/providers/Microsoft.PowerApps/apis/shared_deves-5fbusinesscentral-5fe3c6506302a2990e-5f6e9940142d357f4b",
+  "type": "Microsoft.PowerApps/apis",
+  "properties": {
+    "displayName": "DEVES_BusinessCentral",
+    "iconUri": "https://defaulticons.powerapps.com/defaulticons/api-dedicated.png",
+    "iconBrandColor": "#007ee5",
+    "contact": {},
+    "license": {},
+    "apiEnvironment": "Shared",
+    "isCustomApi": true,
+    "blobUrisAreProxied": false,
+    "connectionParameterSets": {
+      "uiDefinition": {},
+      "values": []
+    },
+    "connectionParameters": {
+      "token": {
+        "type": "oauthSetting",
+        "oAuthSettings": {
+          "identityProvider": "oauth2",
+          "clientId": "4536f478-2b45-41ba-93b6-34535338285e",
+          "scopes": [
+            "https://api.businesscentral.dynamics.com/.default"
+          ],
+          "redirectMode": "GlobalPerConnector",
+          "redirectUrl": "https://global.consent.azure-apim.net/redirect/deves-5fbusinesscentral-5fe3c6506302a2990e-5f6e9940142d357f4b",
+          "properties": {
+            "IsFirstParty": "False",
+            "IsOnbehalfofLoginSupported": false
+          },
+          "customParameters": {
+            "AuthorizationUrl": {
+              "value": "https://login.microsoftonline.com/be3fcc1f-2132-4821-95eb-5d33593096bf/oauth2/v2.0/authorize"
+            },
+            "TokenUrl": {
+              "value": "https://login.microsoftonline.com/be3fcc1f-2132-4821-95eb-5d33593096bf/oauth2/v2.0/token"
+            },
+            "RefreshUrl": {
+              "value": "https://login.microsoftonline.com/be3fcc1f-2132-4821-95eb-5d33593096bf/oauth2/v2.0/token"
+            }
+          }
+        },
+        "uiDefinition": {
+          "displayName": "Conexión de OAuth",
+          "description": "Conexión de OAuth",
+          "constraints": {
+            "required": "true",
+            "hidden": "false"
+          }
+        }
+      }
+    },
+    "swagger": {
+      "swagger": "2.0",
+      "info": {
+        "title": "DEVES_BusinessCentral",
+        "description": "Business Central Time Registration Records",
+        "version": "1.0"
+      },
+      "host": "usa002-004.azure-apihub.net",
+      "basePath": "/apim/deves-5fbusinesscentral-5fe3c6506302a2990e-5f6e9940142d357f4b",
+      "schemes": [
+        "https",
+        "http"
+      ],
+      "consumes": [],
+      "produces": [],
+      "paths": {
+        "/{connectionId}/companies(24f9b5d6-4895-ef11-8a6b-00224840f1d6)/timeEntryRegistrations": {
+          "get": {
+            "responses": {
+              "default": {
+                "description": "default",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "@odata.context": {
+                      "type": "string",
+                      "description": "@odata.context"
+                    },
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "@odata.etag": {
+                            "type": "string",
+                            "description": "@odata.etag"
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "id"
+                          },
+                          "employeeNo": {
+                            "type": "string",
+                            "description": "employeeNo"
+                          },
+                          "workLocation": {
+                            "type": "string",
+                            "description": "workLocation"
+                          },
+                          "workRoleCode": {
+                            "type": "string",
+                            "description": "workRoleCode"
+                          },
+                          "systemDateEntry": {
+                            "type": "string",
+                            "description": "systemDateEntry"
+                          },
+                          "systemTimeEntry": {
+                            "type": "string",
+                            "description": "systemTimeEntry"
+                          },
+                          "systemDateExit": {
+                            "type": "string",
+                            "description": "systemDateExit"
+                          },
+                          "systemTimeExit": {
+                            "type": "string",
+                            "description": "systemTimeExit"
+                          },
+                          "userDateEntry": {
+                            "type": "string",
+                            "description": "userDateEntry"
+                          },
+                          "userTimeEntry": {
+                            "type": "string",
+                            "description": "userTimeEntry"
+                          },
+                          "userDateExit": {
+                            "type": "string",
+                            "description": "userDateExit"
+                          },
+                          "userTimeExit": {
+                            "type": "string",
+                            "description": "userTimeExit"
+                          },
+                          "noOfHours": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "noOfHours"
+                          },
+                          "status": {
+                            "type": "string",
+                            "description": "status"
+                          },
+                          "entryStatus": {
+                            "type": "string",
+                            "description": "entryStatus"
+                          },
+                          "leavingStatus": {
+                            "type": "string",
+                            "description": "leavingStatus"
+                          },
+                          "entryMethod": {
+                            "type": "string",
+                            "description": "entryMethod"
+                          },
+                          "entryEmployeeComment": {
+                            "type": "string",
+                            "description": "entryEmployeeComment"
+                          },
+                          "originLogon": {
+                            "type": "string",
+                            "description": "originLogon"
+                          },
+                          "checkInDateTime": {
+                            "type": "string",
+                            "description": "checkInDateTime"
+                          },
+                          "checkOutDateTime": {
+                            "type": "string",
+                            "description": "checkOutDateTime"
+                          },
+                          "durationMinutes": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "durationMinutes"
+                          }
+                        }
+                      },
+                      "description": "value"
+                    }
+                  }
+                }
+              }
+            },
+            "summary": "GetTimeRegistration",
+            "description": "GetTimeRegistration",
+            "operationId": "GetTimeRegistration",
+            "parameters": [
+              {
+                "name": "connectionId",
+                "in": "path",
+                "required": true,
+                "x-ms-visibility": "internal",
+                "type": "string"
+              }
+            ]
+          }
+        }
+      },
+      "definitions": {},
+      "parameters": {},
+      "responses": {},
+      "security": [
+        {
+          "oauth2-auth": [
+            "https://api.businesscentral.dynamics.com/.default"
+          ]
+        }
+      ],
+      "tags": [],
+      "securityDefinitions": {
+        "oauth2-auth": {
+          "type": "oauth2",
+          "flow": "accessCode",
+          "tokenUrl": "https://login.windows.net/common/oauth2/authorize",
+          "scopes": {
+            "https://api.businesscentral.dynamics.com/.default": "https://api.businesscentral.dynamics.com/.default"
+          },
+          "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize"
+        }
+      }
+    },
+    "runtimeUrls": [
+      "https://b72ef45b-3c29-e724-9719-da75ad76b506.03.custom.usa002.azure-apihub.net/apim/deves-5fbusinesscentral-5fe3c6506302a2990e-5f6e9940142d357f4b",
+      "http://b72ef45b-3c29-e724-9719-da75ad76b506.03.custom.usa002.azure-apihub.net/apim/deves-5fbusinesscentral-5fe3c6506302a2990e-5f6e9940142d357f4b"
+    ],
+    "primaryRuntimeUrl": "https://b72ef45b-3c29-e724-9719-da75ad76b506.03.custom.usa002.azure-apihub.net/apim/deves-5fbusinesscentral-5fe3c6506302a2990e-5f6e9940142d357f4b",
+    "doNotUseApiHubNetRuntimeUrl": "https://b72ef45b-3c29-e724-9719-da75ad76b506.03.custom.usa002.azure-apihub.net/apim/deves-5fbusinesscentral-5fe3c6506302a2990e-5f6e9940142d357f4b",
+    "metadata": {
+      "source": "powerapps-user-defined",
+      "brandColor": "#007ee5",
+      "contact": {},
+      "license": {},
+      "publisherUrl": null,
+      "serviceUrl": null,
+      "documentationUrl": null,
+      "environmentName": "b72ef45b-3c29-e724-9719-da75ad76b506",
+      "xrmConnectorId": null,
+      "almMode": "Environment",
+      "parameters": {},
+      "useNewApimVersion": true,
+      "createdBy": "{\"id\":\"c9aee409-8ff9-4b5a-9441-32abd6960378\",\"displayName\":\"Alejandro  Vazquez\",\"type\":\"User\",\"tenantId\":\"be3fcc1f-2132-4821-95eb-5d33593096bf\",\"userPrincipalName\":\"admin@DEVESLSRetailConsultingTeam.onmicrosoft.com\"}",
+      "modifiedBy": "{\"id\":\"c9aee409-8ff9-4b5a-9441-32abd6960378\",\"displayName\":\"Alejandro  Vazquez\",\"type\":\"User\",\"tenantId\":\"be3fcc1f-2132-4821-95eb-5d33593096bf\",\"userPrincipalName\":\"admin@DEVESLSRetailConsultingTeam.onmicrosoft.com\"}",
+      "allowSharing": false,
+      "rateLimit": 0
+    },
+    "capabilities": [],
+    "description": "Business Central Time Registration Records",
+    "apiDefinitions": {
+      "originalSwaggerUrl": "https://usa002004wus3ext.blob.core.windows.net/api-swagger-files/unitedstates-002/deves-5fbusinesscentral-5fe3c6506302a2990e-5f6e9940142d357f4b.json_original?skoid=e6898b49-53e1-4e33-bbf3-f68cbec72336&sktid=33e01921-4d64-4f8c-a055-5bdaffd5e33d&skt=2026-01-05T13%3A38%3A18Z&ske=2026-01-06T13%3A38%3A18Z&sks=b&skv=2025-01-05&sv=2025-01-05&spr=https&se=2026-01-05T15%3A27%3A49Z&sr=b&sp=r&sig=d1nHCb2GKPmSKfDumAtvbn2Ouz7ehgR%2F5t02yrXaLTU%3D",
+      "modifiedSwaggerUrl": "https://usa002004wus3ext.blob.core.windows.net/api-swagger-files/unitedstates-002/deves-5fbusinesscentral-5fe3c6506302a2990e-5f6e9940142d357f4b.json?skoid=e6898b49-53e1-4e33-bbf3-f68cbec72336&sktid=33e01921-4d64-4f8c-a055-5bdaffd5e33d&skt=2026-01-05T13%3A38%3A18Z&ske=2026-01-06T13%3A38%3A18Z&sks=b&skv=2025-01-05&sv=2025-01-05&spr=https&se=2026-01-05T15%3A27%3A49Z&sr=b&sp=r&sig=X5Pp6RUilGxeVbXK%2F47wOs4OwQHFCnj1Qe%2FkgwdOhl8%3D"
+    },
+    "backendService": {
+      "serviceUrl": "https://api.businesscentral.dynamics.com/v2.0/be3fcc1f-2132-4821-95eb-5d33593096bf/LoyaltyIntegrationDev/api/lsretail/timeregistration/v2.0"
+    },
+    "createdBy": {
+      "id": "c9aee409-8ff9-4b5a-9441-32abd6960378",
+      "displayName": "Alejandro  Vazquez",
+      "type": "User",
+      "tenantId": "be3fcc1f-2132-4821-95eb-5d33593096bf",
+      "userPrincipalName": "admin@DEVESLSRetailConsultingTeam.onmicrosoft.com"
+    },
+    "modifiedBy": {
+      "id": "c9aee409-8ff9-4b5a-9441-32abd6960378",
+      "displayName": "Alejandro  Vazquez",
+      "type": "User",
+      "tenantId": "be3fcc1f-2132-4821-95eb-5d33593096bf",
+      "userPrincipalName": "admin@DEVESLSRetailConsultingTeam.onmicrosoft.com"
+    },
+    "createdTime": "2026-01-05T13:31:27.8545103Z",
+    "changedTime": "2026-01-05T14:26:09.8428286Z",
+    "environment": {
+      "id": "/providers/Microsoft.PowerApps/environments/b72ef45b-3c29-e724-9719-da75ad76b506",
+      "name": "b72ef45b-3c29-e724-9719-da75ad76b506"
+    },
+    "tier": "Standard",
+    "publisher": "Alejandro  Vazquez",
+    "almMode": "Environment",
+    "parameters": {},
+    "rateLimit": 0,
+    "apiVersion": "None"
+  }
+}

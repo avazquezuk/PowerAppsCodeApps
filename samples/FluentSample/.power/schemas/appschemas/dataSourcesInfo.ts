@@ -5,6 +5,31 @@
  */
 
 export const dataSourcesInfo = {
+  "deves-5fbusinesscentral-5fe3c6506302a2990e-5f6e9940142d357f4b": {
+    "tableId": "",
+    "version": "",
+    "primaryKey": "",
+    "dataSourceType": "Connector",
+    "apis": {
+      "GetTimeRegistration": {
+        "path": "/{connectionId}/companies(24f9b5d6-4895-ef11-8a6b-00224840f1d6)/timeEntryRegistrations",
+        "method": "GET",
+        "parameters": [
+          {
+            "name": "connectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responseInfo": {
+          "default": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
   "office365users": {
     "tableId": "",
     "version": "",

@@ -16,6 +16,14 @@
       "dataSources": [
         "office365users"
       ]
+    },
+    "deves-5fbusinesscentral-5fe3c6506302a2990e-5f6e9940142d357f4b": {
+      "id": "/providers/Microsoft.PowerApps/apis/shared_deves-5fbusinesscentral-5fe3c6506302a2990e-5f6e9940142d357f4b",
+      "displayName": "DEVES_BusinessCentral",
+      "connectionId": "f0c06333aad049149885bbcb7c5f9461",
+      "dataSources": [
+        "deves-5fbusinesscentral-5fe3c6506302a2990e-5f6e9940142d357f4b"
+      ]
     }
   },
   "databaseReferences": {}

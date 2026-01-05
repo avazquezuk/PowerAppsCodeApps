@@ -1,7 +1,8 @@
 import { Text, Card, makeStyles, shorthands, tokens, Button, Badge, Tooltip } from '@fluentui/react-components';
 import { ClockRegular } from '@fluentui/react-icons';
 import PageHeader from '../components/PageHeader';
-import { mockTimeRegistrations, TimeRegistration } from '../mockData/timeRegistrationData';
+import { DEVES_BusinessCentralService } from '../generated/services/DEVES_BusinessCentralService';
+import type { TimeRegistration } from '../generated/models/DEVES_BusinessCentralModel';
 import { useState, useEffect } from 'react';
 
 const useStyles = makeStyles({
@@ -46,11 +47,15 @@ export default function CustomApiPage() {
       setLoadingRegistrations(true);
       setError(null);
       
-      // Simulate API loading delay
-      await new Promise(resolve => setTimeout(resolve, 800));
+      const result = await DEVES_BusinessCentralService.GetTimeRegistration();
       
-      // Use static mock data instead of live API
-      setRegistrations(mockTimeRegistrations);
+      if (result.success && result.data) {
+        setRegistrations(result.data.value || []);
+        console.log('Loaded time registrations:', result.data.value?.length);
+      } else {
+        setError(result.error?.message || 'Failed to load time registrations');
+        setRegistrations([]);
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred while loading time registrations');
       setRegistrations([]);
@@ -83,13 +88,13 @@ export default function CustomApiPage() {
   return (
     <div className={styles.container}>
       <PageHeader
-        title="Time Registration Custom API"
-        subtitle="This page demonstrates time registration custom API connector integration patterns using Power Platform. Replace mock data with real custom connector calls to connect to your API."
+        title="Business Central Time Registration"
+        subtitle="Live time registration data from Business Central. This page connects to your Business Central custom connector to display real employee time tracking records."
         icon={<ClockRegular />}
       />
 
-      <Badge className={styles.mockDataBadge} appearance="tint" color="warning">
-        📋 Template Mode - Static Time Registration Data
+      <Badge className={styles.mockDataBadge} appearance="tint" color="success">
+        ✅ Live Data - Connected to Business Central
       </Badge>
 
       {/* Sample Data */}
@@ -117,10 +122,10 @@ export default function CustomApiPage() {
           <Card style={{ padding: '16px', backgroundColor: tokens.colorNeutralBackground2, marginBottom: '16px', border: `2px solid ${tokens.colorNeutralStroke2}` }}>
             <div style={{ textAlign: 'center' }}>
               <Text style={{ color: tokens.colorNeutralForeground1, lineHeight: tokens.lineHeightBase300, display: 'block', marginBottom: '8px', fontSize: tokens.fontSizeBase200, fontWeight: tokens.fontWeightSemibold }}>
-                🔗 Template Ready for Your Time Registration Connector
+                🔗 Connected to Business Central API
               </Text>
               <Text style={{ color: tokens.colorNeutralForeground2, lineHeight: tokens.lineHeightBase300, fontSize: tokens.fontSizeBase100 }}>
-                Replace mockTimeRegistrations with your custom connector service calls to connect to real time registration data.
+                Displaying real-time employee time registration data from your Business Central system.
               </Text>
             </div>
           </Card>
@@ -207,14 +212,11 @@ export default function CustomApiPage() {
       {/* Integration Note */}
       <Card style={{ padding: '24px', backgroundColor: tokens.colorNeutralBackground2, marginTop: '32px' }}>
         <Text weight="semibold" style={{ display: 'block', marginBottom: '12px', color: tokens.colorNeutralForeground1 }}>
-          ⚙️ Getting Started with Your Time Registration Connector
+          ✨ Business Central Integration Active
         </Text>
         <Text style={{ color: tokens.colorNeutralForeground2, lineHeight: tokens.lineHeightBase300 }}>
-          This template demonstrates Power Platform custom connector integration patterns for time registration systems. To connect to your real API:
-          1) Create your time registration custom connector in Power Platform, 2) Generate the connector service using Power Apps SDK, 
-          3) Replace the mockTimeRegistrations import with your real connector service calls. 
-          The table structure displays employee check-in/check-out times, work hours, locations, roles, and status information. 
-          All formatting and error handling patterns are ready for your live data.
+          This page is connected to your Business Central time registration API. The data shown above is live from your Business Central environment, 
+          displaying real employee check-in/check-out times, work hours, locations, roles, and status information.
         </Text>
       </Card>
     </div>
